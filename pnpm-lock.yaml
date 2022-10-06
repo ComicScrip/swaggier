@@ -4,6 +4,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
   '@testing-library/user-event': ^13.5.0
+  '@ts-stack/openapi-spec': ^3.1.5
   '@types/jest': ^27.5.2
   '@types/node': ^16.11.64
   '@types/react': ^18.0.21
@@ -12,6 +13,8 @@ specifiers:
   postcss: ^8.4.17
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-hook-form: ^7.36.1
+  react-hook-form-persist: ^3.0.0
   react-scripts: 5.0.1
   tailwindcss: ^3.1.8
   typescript: ^4.8.4
@@ -27,11 +30,14 @@ dependencies:
   '@types/react-dom': 18.0.6
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.36.1_react@18.2.0
+  react-hook-form-persist: 3.0.0_ut7k6uu2ibibs7jweanluldwrq
   react-scripts: 5.0.1_dbnkmta66qj5qdwz5xpgscew3y
   typescript: 4.8.4
   web-vitals: 2.1.4
 
 devDependencies:
+  '@ts-stack/openapi-spec': 3.1.5
   autoprefixer: 10.4.12_postcss@8.4.17
   postcss: 8.4.17
   tailwindcss: 3.1.8_postcss@8.4.17
@@ -2243,6 +2249,10 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
     dev: false
+
+  /@ts-stack/openapi-spec/3.1.5:
+    resolution: {integrity: sha512-IIalX7oLFYUU8HXY3bFTV6l/8OPyKRbtrt64Z0SM6H7ZfTxfy0e3fWeSYsWiKCIobXeFKL5QETG61PANB9tEHw==}
+    dev: true
 
   /@types/aria-query/4.2.2:
     resolution: {integrity: sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==}
@@ -7987,6 +7997,25 @@ packages:
 
   /react-error-overlay/6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
+    dev: false
+
+  /react-hook-form-persist/3.0.0_ut7k6uu2ibibs7jweanluldwrq:
+    resolution: {integrity: sha512-6nwW65JyFpBem9RjLYAWvIFxOLoCk0E13iB9e5yeF5jeHlwx1ua0M77FvwhPpD8eaCz7hG4ziCdOxRcnJVUSxQ==}
+    peerDependencies:
+      react: '>= 16.3'
+      react-hook-form: '>= 6'
+    dependencies:
+      react: 18.2.0
+      react-hook-form: 7.36.1_react@18.2.0
+    dev: false
+
+  /react-hook-form/7.36.1_react@18.2.0:
+    resolution: {integrity: sha512-EbYYkCG2p8ywe7ikOH2l02lAFMrrrslZi1I8fqd8ifDGNAkhomHZQzQsP6ksvzrWBKntRe8b5L5L7Zsd+Gm02Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:
