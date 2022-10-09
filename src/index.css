@@ -16,6 +16,3 @@ code {
     monospace;
 }
 
-h2 {
-  @apply mb-4 font-bold text-xl
-}

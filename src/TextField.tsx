@@ -1,21 +1,22 @@
-import { FieldPath, FieldValues, UseFormRegister } from "react-hook-form";
-import { OAS } from "./types";
+import type { JSX } from "solid-js";
 
-interface TextFieldProps<T extends FieldValues> {
-  path: FieldPath<T>;
-  register: UseFormRegister<T>;
+interface TextFieldProps {
+  id: string;
   label: string;
+  value: string;
+  onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
 }
 
-const TextField = <T extends FieldValues>({
-  path,
-  label,
-  register,
-}: TextFieldProps<T>) => {
+const TextField = ({ label, value, onInput, id }: TextFieldProps) => {
   return (
-    <label htmlFor={path}>
+    <label for={id}>
       {label} :{" "}
-      <input {...register(path)} className="border border-solid p-2" />
+      <input
+        class="border border-solid p-2"
+        value={value}
+        onInput={onInput}
+        id={id}
+      />
     </label>
   );
 };

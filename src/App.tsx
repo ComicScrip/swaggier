@@ -1,33 +1,20 @@
-import "./App.css";
-import { useForm } from "react-hook-form";
-import useFormPersist from "react-hook-form-persist";
-import { OAS } from "./types";
-import Path from "./Path";
-import PathForm from "./PathForm";
-import TextField from "./TextField";
+import { Component, For } from "solid-js";
+import InfoForm from "./InfoForm";
+import EndpointForm from "./EndpointForm";
+import { spec } from "./specStore";
+import { Endpoint as EndpointType, HTTPVerb } from "./types";
+import Endpoint from "./Endpoint";
 
-function App() {
-  const { register, watch, setValue } = useForm<OAS>();
-
-  useFormPersist("spec", {
-    watch,
-    setValue,
-    storage: window.localStorage,
-  });
-
+const App: Component = () => {
   return (
     <div>
       <h2>General Info</h2>
-
+      <InfoForm />
       <h2>Paths</h2>
-
-      <PathForm setSpecValue={setValue} />
-
-      {pathArray.map((path) => (
-        <Path key={path.id} path={path} />
-      ))}
+      <EndpointForm />
+      <For each={spec.endpoints}>{(item) => <Endpoint endpoint={item} />}</For>
     </div>
   );
-}
+};
 
 export default App;
