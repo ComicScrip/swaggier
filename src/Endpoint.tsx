@@ -1,6 +1,7 @@
 import { Component, createSignal } from "solid-js";
 import { Endpoint as EndpointType, PathObject } from "./types";
 import axios from "axios";
+import { setSpec } from "./specStore";
 
 interface EndpointProps {
   endpoint: EndpointType;

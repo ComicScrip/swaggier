@@ -1,16 +1,17 @@
 import { Component, For } from "solid-js";
 import InfoForm from "./InfoForm";
 import EndpointForm from "./EndpointForm";
-import { endpoints, spec } from "./specStore";
+import { endpoints, setSpec, spec } from "./specStore";
 import Endpoint from "./Endpoint";
+import dayjs from "dayjs";
 
 const App: Component = () => {
   const downloadFile = (
     dataObjToWrite = {},
-    filename = "spec.json",
+    filename = `spec-${dayjs().format("YYYYMMDD-HHmmss")}.json`,
     type = "text/json"
   ) => {
-    const blob = new Blob([JSON.stringify(dataObjToWrite)], { type });
+    const blob = new Blob([JSON.stringify(dataObjToWrite, null, 2)], { type });
     const link = document.createElement("a");
 
     link.download = filename;
@@ -26,9 +27,24 @@ const App: Component = () => {
     link.remove();
   };
 
+  const importFile = async (file: File) => {
+    setSpec(JSON.parse(await file.text()));
+  };
+
   return (
     <div>
       <button onclick={() => downloadFile(spec)}>export</button>
+      <input
+        type="file"
+        id="spec"
+        name="spec"
+        accept="application/json"
+        onchange={(e) => {
+          if (e?.currentTarget?.files?.[0])
+            importFile(e.currentTarget.files[0]);
+        }}
+      />
+
       <h2>General Info</h2>
       <InfoForm />
       <h2>Paths</h2>

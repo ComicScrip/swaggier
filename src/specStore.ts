@@ -39,7 +39,11 @@ export const endpoints = createMemo(
   () => {
     const paths = spec.paths || {};
     return Object.keys(paths).flatMap((path) =>
-      Object.keys(paths[path]).map((verb) => paths[path][verb as HTTPVerb])
+      Object.keys(paths[path]).map((verb) => ({
+        ...paths[path][verb as HTTPVerb],
+        path,
+        verb,
+      }))
     );
   },
   [],
@@ -50,8 +54,6 @@ export const addEndpoint = (path: string, verb: HTTPVerb) => {
   if (!spec.paths) setSpec({ paths: {} });
   if (!spec?.paths?.[path]) setSpec("paths", path, {});
   setSpec("paths", path, verb, {
-    path,
-    verb,
     summary: "",
   });
 };

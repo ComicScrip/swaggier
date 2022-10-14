@@ -1,4 +1,8 @@
-import { InfoObject, OasObject } from "@ts-stack/openapi-spec";
+import {
+  HttpStatusCode,
+  InfoObject,
+  MediaTypeObject,
+} from "@ts-stack/openapi-spec";
 
 declare module "solid-js" {
   namespace JSX {
@@ -8,12 +12,22 @@ declare module "solid-js" {
   }
 }
 
-export type HTTPVerb = "get" | "post";
+export type HTTPVerb = "get" | "post" | "patch" | "put" | "options" | "delete";
+
+export interface Response {
+  description: string;
+  content: MediaTypeObject;
+}
 
 export type Endpoint = {
   summary: string;
   path: string;
   verb: string;
+  description?: string;
+  parameters?: object;
+  reponses?: {
+    [statusCode in HttpStatusCode]: Response;
+  };
 };
 
 export type PathObject = {
