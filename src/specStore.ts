@@ -1,6 +1,6 @@
-import { createEffect } from "solid-js";
+import { createEffect, createMemo } from "solid-js";
 import { createStore, SetStoreFunction, Store } from "solid-js/store";
-import { OAS } from "./types";
+import { Endpoint, HTTPVerb, OAS } from "./types";
 
 export function createLocalStore<T extends object>(
   name: string,
@@ -32,5 +32,26 @@ export const [spec, setSpec] = createLocalStore<OAS>("spec", {
     summary: "",
     termsOfService: "",
   },
-  endpoints: [],
+  paths: {},
 });
+
+export const endpoints = createMemo(
+  () => {
+    const paths = spec.paths || {};
+    return Object.keys(paths).flatMap((path) =>
+      Object.keys(paths[path]).map((verb) => paths[path][verb as HTTPVerb])
+    );
+  },
+  [],
+  { equals: false }
+) as () => Endpoint[];
+
+export const addEndpoint = (path: string, verb: HTTPVerb) => {
+  if (!spec.paths) setSpec({ paths: {} });
+  if (!spec?.paths?.[path]) setSpec("paths", path, {});
+  setSpec("paths", path, verb, {
+    path,
+    verb,
+    summary: "",
+  });
+};

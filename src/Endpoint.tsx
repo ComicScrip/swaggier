@@ -6,20 +6,19 @@ interface EndpointProps {
   endpoint: EndpointType;
 }
 
-const Endpoint: Component<EndpointProps> = function ({
-  endpoint: { verb, path },
-}) {
+const Endpoint: Component<EndpointProps> = function ({ endpoint }) {
   const [serverResponse, setServerResponse] = createSignal("");
 
   return (
     <div class="border border-solid border-black m-8">
-      {verb} {path}
+      {endpoint.verb} {endpoint.path}
+      <summary>{endpoint.summary}</summary>
       <div>
         <button
           onclick={() =>
             axios({
-              method: verb,
-              url: path,
+              method: endpoint.verb,
+              url: endpoint.path,
             }).then((res) =>
               setServerResponse(JSON.stringify(res.data, null, 2))
             )

@@ -22,5 +22,7 @@ export type PathObject = {
 
 export interface OAS {
   info: InfoObject;
-  endpoints: Endpoint[];
+  paths?: {
+    [path: string]: PathObject;
+  };
 }

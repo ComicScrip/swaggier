@@ -1,30 +1,24 @@
 import { Component, createSignal } from "solid-js";
-import { setSpec } from "./specStore";
+import { addEndpoint, setSpec, spec } from "./specStore";
 import TextField from "./TextField";
+import { HTTPVerb } from "./types";
 
 const EndpointForm: Component = () => {
   const [newEndpointPath, setNewEndpointPath] = createSignal("");
-  const [newEndpointVerb, setNewEndpointVerb] = createSignal("get");
+  const [newEndpointVerb, setNewEndpointVerb] = createSignal<HTTPVerb>("get");
   return (
     <form
       onsubmit={(e) => {
         e.preventDefault();
         if (newEndpointPath() && newEndpointVerb()) {
-          setSpec("endpoints", (endpoints) => [
-            ...endpoints,
-            {
-              path: newEndpointPath(),
-              verb: newEndpointVerb(),
-              summary: "",
-            },
-          ]);
+          addEndpoint(newEndpointPath(), newEndpointVerb());
         }
       }}
     >
       <select
         id="newEndpointVerb"
         value={newEndpointVerb()}
-        onInput={(e) => setNewEndpointVerb(e.currentTarget.value)}
+        onInput={(e) => setNewEndpointVerb(e.currentTarget.value as HTTPVerb)}
       >
         {["GET", "POST", "PATCH", "DELETE"].map((verb) => (
           <option value={verb.toLowerCase()}>{verb}</option>
