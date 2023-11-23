@@ -1,9 +1,11 @@
 import { Component, For } from "solid-js";
 import InfoForm from "./InfoForm";
 import EndpointForm from "./EndpointForm";
-import { endpoints, setSpec, spec } from "./specStore";
+import { endpoints, servers, setSpec, spec } from "./specStore";
 import Endpoint from "./Endpoint";
 import dayjs from "dayjs";
+import ServerForm from "./ServerForm";
+import Server from "./Server";
 
 const App: Component = () => {
   const downloadFile = (
@@ -47,6 +49,11 @@ const App: Component = () => {
 
       <h2>General Info</h2>
       <InfoForm />
+
+      <h2>Servers</h2>
+      <ServerForm />
+      <For each={servers()}>{(item) => <Server server={item} />}</For>
+
       <h2>Paths</h2>
       <EndpointForm />
       <For each={endpoints()}>{(item) => <Endpoint endpoint={item} />}</For>

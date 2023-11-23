@@ -22,7 +22,7 @@ export interface Response {
 export type Endpoint = {
   summary: string;
   path: string;
-  verb: string;
+  verb: HTTPVerb;
   description?: string;
   parameters?: object;
   reponses?: {
@@ -34,9 +34,15 @@ export type PathObject = {
   [verb in HTTPVerb]?: Endpoint;
 };
 
+export interface ServerObject {
+  url: string;
+  description: string;
+}
+
 export interface OAS {
   info: InfoObject;
   paths?: {
     [path: string]: PathObject;
   };
+  servers: ServerObject[];
 }

@@ -1,7 +1,7 @@
 import { Component, createSignal } from "solid-js";
 import { Endpoint as EndpointType, PathObject } from "./types";
 import axios from "axios";
-import { setSpec } from "./specStore";
+import { deleteEndpoint, selectedServer, setSpec } from "./specStore";
 
 interface EndpointProps {
   endpoint: EndpointType;
@@ -12,14 +12,15 @@ const Endpoint: Component<EndpointProps> = function ({ endpoint }) {
 
   return (
     <div class="border border-solid border-black m-8">
-      {endpoint.verb} {endpoint.path}
+      {endpoint.verb} {selectedServer.url}
+      {endpoint.path}
       <summary>{endpoint.summary}</summary>
       <div>
         <button
           onclick={() =>
             axios({
               method: endpoint.verb,
-              url: endpoint.path,
+              url: selectedServer.url + endpoint.path,
             }).then((res) =>
               setServerResponse(JSON.stringify(res.data, null, 2))
             )
@@ -29,6 +30,9 @@ const Endpoint: Component<EndpointProps> = function ({ endpoint }) {
         </button>
         <pre>{serverResponse()}</pre>
       </div>
+      <button onclick={() => deleteEndpoint(endpoint.path, endpoint.verb)}>
+        Delete
+      </button>
     </div>
   );
 };
